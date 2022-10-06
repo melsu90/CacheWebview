@@ -35,31 +35,11 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
-          
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v1
-        with:
-          python-version: "3.7"
-
-      - uses: actions/checkout@v1
-          
-      - name: Fetch action
-        id: pl
-        uses: Rishabh510/Path-lister-action@master
-        with:
-          path: "app/"
-          type: ".apk"
-
-      - name: Output results
-        run: |
-          echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
-          for i in ${{ steps.pl.outputs.paths }}; do
-          echo $i
-          done
+          la -ls
           
       # Uploads the folder or file in path to GitHub
       - name: Upload Apk
         uses: actions/upload-artifact@v2
         with:
           name: DebugApp
-          path: $i #app/build/outputs/apk/debug/
+          path: app/build/outputs/apk/
